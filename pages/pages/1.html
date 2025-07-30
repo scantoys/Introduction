@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>驱动下载 - XL 系列打印机</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CBCB',
+                        neutral: {
+                            100: '#F5F7FA',
+                            200: '#E5E6EB',
+                            300: '#C9CDD4',
+                            400: '#86909C',
+                            500: '#4E5969',
+                            600: '#272E3B',
+                            700: '#1D2129',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(22, 93, 255, 0.15);
+            }
+        }
+    </style>
+</head>
+<body class="bg-neutral-100 font-inter text-neutral-700 min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-download text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-neutral-700">Driver<span class="text-primary">Download</span></h1>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="font-medium text-primary hover:text-primary/80 transition-colors">首页</a>
+                <a href="#" class="font-medium text-neutral-500 hover:text-primary transition-colors">驱动下载</a>
+                <a href="#" class="font-medium text-neutral-500 hover:text-primary transition-colors">常见问题</a>
+                <a href="#" class="font-medium text-neutral-500 hover:text-primary transition-colors">联系我们</a>
+            </nav>
+            <button class="md:hidden text-neutral-700 text-xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="bg-gradient-to-br from-primary/90 to-primary py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white mb-6 leading-tight">
+                    轻松获取打印机驱动程序
+                </h2>
+                <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mb-8">
+                    为您的 XL 系列打印机提供最新、最稳定的驱动程序和软件
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#windows-drivers" class="bg-white text-primary hover:bg-neutral-100 px-8 py-3 rounded-lg font-medium transition-all hover-lift">
+                        <i class="fa fa-windows mr-2"></i>Windows 驱动
+                    </a>
+                    <a href="#mac-drivers" class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-all">
+                        <i class="fa fa-apple mr-2"></i>Mac 驱动
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主内容区域 -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <!-- 驱动概览 -->
+        <section class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-neutral-700 mb-4">
+                    驱动程序总览
+                </h2>
+                <p class="text-neutral-500 max-w-2xl mx-auto">
+                    我们提供超过 9250 款适用于 Windows 系统的驱动程序和软件，以及针对不同型号打印机的特定驱动
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 card-shadow hover-lift">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-windows text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-neutral-700">Windows 驱动</h3>
+                    <p class="text-neutral-500 mb-4">为您的 Windows 设备提供全面的驱动支持，确保打印机完美运行。</p>
+                    <a href="#windows-drivers" class="text-primary font-medium inline-flex items-center">
+                        浏览全部 <i class="fa fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 card-shadow hover-lift">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-apple text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-neutral-700">Mac 驱动</h3>
+                    <p class="text-neutral-500 mb-4">专为 macOS 系统优化的驱动程序，提供无缝的打印体验。</p>
+                    <a href="#mac-drivers" class="text-primary font-medium inline-flex items-center">
+                        浏览全部 <i class="fa fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 card-shadow hover-lift">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa fa-linux text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-neutral-700">Linux 驱动</h3>
+                    <p class="text-neutral-500 mb-4">针对 Linux 系统的专业驱动支持，满足开发者和高级用户需求。</p>
+                    <a href="#linux-drivers" class="text-primary font-medium inline-flex items-center">
+                        浏览全部 <i class="fa fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Windows 驱动 -->
+        <section id="windows-drivers" class="mb-16 scroll-mt-20">
+            <div class="bg-white rounded-xl overflow-hidden card-shadow">
+                <div class="bg-primary p-6 md:p-8">
+                    <h2 class="text-[clamp(1.25rem,2vw,1.75rem)] font-bold text-white">Windows 驱动程序</h2>
+                    <p class="text-white/80 mt-2">为 Windows 系统提供的最新驱动和软件</p>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fa fa-desktop text-primary mr-2"></i>
+                            通用驱动和软件
+                        </h3>
+                        <div class="bg-neutral-100 rounded-lg p-4">
+                            <div class="flex flex-col sm:flex-row justify-between items-center">
+                                <div>
+                                    <h4 class="font-medium text-neutral-700">Windows 通用驱动包</h4>
+                                    <p class="text-neutral-500 text-sm mt-1">包含 9250 款驱动和软件</p>
+                                </div>
+                                <div class="mt-3 sm:mt-0">
+                                    <a href="https://pan.gzxlscan.cn/s/87rk9c" target="_blank" class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center transition-colors">
+                                        <i class="fa fa-download mr-2"></i> 下载
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fa fa-print text-primary mr-2"></i>
+                            按型号分类的驱动
+                        </h3>
+
+                        <!-- XL-P801/XL-P801X/GD88 驱动 -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('p801-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-primary mr-2 transition-transform" id="p801-chevron"></i>
+                                    XL-P801/XL-P801X/GD88 驱动
+                                </h4>
+                                <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">3 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="p801-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-P801_Driver_Latest-V1.1.3.zip</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 Windows 的最新驱动程序</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/f20hr5" target="_blank" class="bg-primary hover:bg-primary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-P801_XL-P801X GD88_Printer_Driver.docx</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">打印机驱动安装指南</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/tzv174" target="_blank" class="bg-primary hover:bg-primary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- XL-A408/T802/A42/A41 驱动 -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('a408-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-primary mr-2 transition-transform" id="a408-chevron"></i>
+                                    XL-A408/T802/A42/A41 驱动
+                                </h4>
+                                <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">3 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="a408-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-A408_T802_1.2.1.13(1).zip</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 Windows 的最新驱动程序</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/31gseg" target="_blank" class="bg-primary hover:bg-primary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- XL-P808 驱动 -->
+                        <div>
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('p808-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-primary mr-2 transition-transform" id="p808-chevron"></i>
+                                    XL-P808 驱动
+                                </h4>
+                                <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full">1 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="p808-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-P808 drive for windows.zip</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 Windows 的最新驱动程序</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/z4o1ut" target="_blank" class="bg-primary hover:bg-primary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mac 驱动 -->
+        <section id="mac-drivers" class="mb-16 scroll-mt-20">
+            <div class="bg-white rounded-xl overflow-hidden card-shadow">
+                <div class="bg-secondary p-6 md:p-8">
+                    <h2 class="text-[clamp(1.25rem,2vw,1.75rem)] font-bold text-white">Mac 驱动程序</h2>
+                    <p class="text-white/80 mt-2">为 macOS 系统提供的最新驱动和软件</p>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fa fa-print text-secondary mr-2"></i>
+                            按型号分类的驱动
+                        </h3>
+
+                        <!-- XL-P801/XL-P801X/GD88 驱动 -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('p801-mac-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-secondary mr-2 transition-transform" id="p801-mac-chevron"></i>
+                                    XL-P801/XL-P801X/GD88 驱动
+                                </h4>
+                                <span class="bg-secondary/10 text-secondary text-xs px-3 py-1 rounded-full">1 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="p801-mac-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-P801_XL-P801X-GD-88MAC.pkg</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 macOS 的驱动程序包</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/y0zy1w" target="_blank" class="bg-secondary hover:bg-secondary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- XL-A408/T802/A42/A41 驱动 -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('a408-mac-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-secondary mr-2 transition-transform" id="a408-mac-chevron"></i>
+                                    XL-A408/T802/A42/A41 驱动
+                                </h4>
+                                <span class="bg-secondary/10 text-secondary text-xs px-3 py-1 rounded-full">2 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="a408-mac-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-A408_T802-Driver_1.2.1.13.pkg</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 macOS 的驱动程序包</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/cs580y" target="_blank" class="bg-secondary hover:bg-secondary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-A408_T802_Apple Computer Printing Tutorial.docx</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">苹果电脑打印教程</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/llt86b" target="_blank" class="bg-secondary hover:bg-secondary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- XL-P808 驱动 -->
+                        <div>
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('p808-mac-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-secondary mr-2 transition-transform" id="p808-mac-chevron"></i>
+                                    XL-P808 驱动
+                                </h4>
+                                <span class="bg-secondary/10 text-secondary text-xs px-3 py-1 rounded-full">1 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="p808-mac-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-P808_Mac_V1.0.3.pkg</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 macOS 的驱动程序包</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/vp6zeu" target="_blank" class="bg-secondary hover:bg-secondary/90 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Linux 驱动 -->
+        <section id="linux-drivers" class="mb-16 scroll-mt-20">
+            <div class="bg-white rounded-xl overflow-hidden card-shadow">
+                <div class="bg-green-600 p-6 md:p-8">
+                    <h2 class="text-[clamp(1.25rem,2vw,1.75rem)] font-bold text-white">Linux 驱动程序</h2>
+                    <p class="text-white/80 mt-2">为 Linux 系统提供的最新驱动和软件</p>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fa fa-print text-green-600 mr-2"></i>
+                            按型号分类的驱动
+                        </h3>
+
+                        <!-- XL-A408/T802/A42/A41 驱动 -->
+                        <div>
+                            <div class="flex items-center justify-between cursor-pointer mb-3" onclick="toggleDrivers('a408-linux-drivers')">
+                                <h4 class="font-medium text-lg flex items-center">
+                                    <i class="fa fa-chevron-down text-green-600 mr-2 transition-transform" id="a408-linux-chevron"></i>
+                                    XL-A408/T802/A42/A41 驱动
+                                </h4>
+                                <span class="bg-green-100 text-green-600 text-xs px-3 py-1 rounded-full">1 个文件</span>
+                            </div>
+                            
+                            <div class="pl-6 space-y-3" id="a408-linux-drivers">
+                                <div class="bg-neutral-100 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row justify-between items-center">
+                                        <div>
+                                            <h5 class="font-medium text-neutral-700">XL-A408_T802_linux_drivers.zip</h5>
+                                            <p class="text-neutral-500 text-sm mt-1">适用于 Linux 的驱动程序包</p>
+                                        </div>
+                                        <div class="mt-3 sm:mt-0">
+                                            <a href="https://pan.gzxlscan.cn/s/y5ail8" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-5 py-1.5 rounded-lg font-medium inline-flex items-center text-sm transition-colors">
+                                                <i class="fa fa-download mr-2"></i> 下载
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 驱动安装帮助 -->
+        <section class="mb-16">
+            <div class="bg-white rounded-xl overflow-hidden card-shadow">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-2xl font-bold mb-6 text-center">驱动安装帮助</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fa fa-windows text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2 text-neutral-700">Windows 安装指南</h3>
+                            <p class="text-neutral-500 mb-4">了解如何在 Windows 系统上安装和更新您的打印机驱动程序。</p>
+                            <a href="#" class="text-primary font-medium inline-flex items-center">
+                                查看指南 <i class="fa fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fa fa-apple text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2 text-neutral-700">Mac 安装指南</h3>
+                            <p class="text-neutral-500 mb-4">获取在 macOS 系统上安装和配置打印机驱动的详细步骤。</p>
+                            <a href="#" class="text-primary font-medium inline-flex items-center">
+                                查看指南 <i class="fa fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fa fa-terminal text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2 text-neutral-700">Linux 安装指南</h3>
+                            <p class="text-neutral-500 mb-4">学习如何在 Linux 系统上手动安装和配置打印机驱动。</p>
+                            <a href="#" class="text-primary font-medium inline-flex items-center">
+                                查看指南 <i class="fa fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section class="mb-16">
+            <div class="bg-white rounded-xl overflow-hidden card-shadow">
+                <div class="p-6 md:p-8">
+                    <h2 class="text-2xl font-bold mb-6 text-center">常见问题</h2>
+                    
+                    <div class="space-y-4 max-w-3xl mx-auto">
+                        <div class="border border-neutral-200 rounded-lg overflow-hidden">
+                            <button class="w-full text-left p-4 flex justify-between items-center focus:outline-none" onclick="toggleFAQ('faq1')">
+                                <span class="font-medium">如何确定我需要哪个驱动程序？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform" id="faq1-chevron"></i>
+                            </button>
+                            <div class="p-4 bg-neutral-50 border-t border-neutral-200 hidden" id="faq1">
+                                <p class="text-neutral-600">您可以通过以下步骤确定所需的驱动程序：
+                                <br>1. 确认您的打印机型号（通常在打印机外壳上标明）。
+                                <br>2. 确定您使用的操作系统（Windows、Mac 或 Linux）及其版本。
+                                <br>3. 在本页面上找到对应的型号和操作系统，下载相应的驱动程序。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-neutral-200 rounded-lg overflow-hidden">
+                            <button class="w-full text-left p-4 flex justify-between items-center focus:outline-none" onclick="toggleFAQ('faq2')">
+                                <span class="font-medium">安装驱动程序后打印机仍无法工作怎么办？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform" id="faq2-chevron"></i>
+                            </button>
+                            <div class="p-4 bg-neutral-50 border-t border-neutral-200 hidden" id="faq2">
+                                <p class="text-neutral-600">如果安装驱动程序后打印机仍无法工作，请尝试以下操作：
+                                <br>1. 确保打印机已正确连接到计算机且已开启。
+                                <br>2. 重启计算机和打印机。
+                                <br>3. 检查打印机是否被设置为默认打印机。
+                                <br>4. 卸载并重新安装驱动程序。
+                                <br>5. 如果问题仍然存在，请联系我们的技术支持团队。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-neutral-200 rounded-lg overflow-hidden">
+                            <button class="w-full text-left p-4 flex justify-between items-center focus:outline-none" onclick="toggleFAQ('faq3')">
+                                <span class="font-medium">在哪里可以找到更多的技术支持？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform" id="faq3-chevron"></i>
+                            </button>
+                            <div class="p-4 bg-neutral-50 border-t border-neutral-200 hidden" id="faq3">
+                                <p class="text-neutral-600">您可以通过以下方式获取更多的技术支持：
+                                <br>1. 访问我们的官方支持网站：<a href="#" class="text-primary hover:underline">support.example.com</a>
+                                <br>2. 发送电子邮件至：<a href="mailto:support@example.com" class="text-primary hover:underline">support@example.com</a>
+                                <br>3. 致电我们的技术支持热线：400-800-8888（周一至周五 9:00-18:00）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="bg-primary/5 rounded-xl p-8 mb-16">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl font-bold mb-4 text-neutral-700">需要更多帮助？</h2>
+                <p class="text-neutral-500 mb-6">如果您在寻找特定的驱动程序或遇到安装问题，请联系我们的技术支持团队</p>
+                <a href="#" class="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    <i class="fa fa-envelope mr-2"></i> 联系支持
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fa fa-download text-primary text-2xl"></i>
+                        <h3 class="text-xl font-bold">Driver<span class="text-primary">Download</span></h3>
+                    </div>
+                    <p class="text-neutral-400 mb-4">为您的 XL 系列打印机提供官方驱动程序和软件下载</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#windows-drivers" class="text-neutral-400 hover:text-white transition-colors">Windows 驱动</a></li>
+                        <li><a href="#mac-drivers" class="text-neutral-400 hover:text-white transition-colors">Mac 驱动</a></li>
+                        <li><a href="#linux-drivers" class="text-neutral-400 hover:text-white transition-colors">Linux 驱动</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">支持</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">技术支持</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">驱动安装指南</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">保修政策</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">隐私政策</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+                            <span class="text-neutral-400">中国广东省广州市天河区科技园</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone text-primary mr-3"></i>
+                            <span class="text-neutral-400">400-800-8888</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-primary mr-3"></i>
+                            <span class="text-neutral-400">support@example.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neutral-700 mt-8 pt-8 text-center text-neutral-500 text-sm">
+                <p>&copy; 2025 XL 打印机驱动下载中心. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2', 'shadow');
+            }
+        });
+
+        // 驱动折叠/展开功能
+        function toggleDrivers(id) {
+            const element = document.getElementById(id);
+            const chevron = document.getElementById(id.replace('drivers', 'chevron'));
+            
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                element.style.display = 'none';
+                chevron.style.transform = 'rotate(0)';
+            }
+        }
+
+        // FAQ 折叠/展开功能
+        function toggleFAQ(id) {
+            const element = document.getElementById(id);
+            const chevron = document.getElementById(id + '-chevron');
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                element.classList.add('hidden');
+                chevron.style.transform = 'rotate(0)';
+            }
+        }
+
+        // 初始化：默认展开所有驱动部分
+        document.addEventListener('DOMContentLoaded', function() {
+            const driverSections = ['p801-drivers', 'a408-drivers', 'p808-drivers', 
+                                    'p801-mac-drivers', 'a408-mac-drivers', 'p808-mac-drivers',
+                                    'a408-linux-drivers'];
+            
+            driverSections.forEach(function(id) {
+                const element = document.getElementById(id);
+                const chevron = document.getElementById(id.replace('drivers', 'chevron'));
+                
+                if (element) {
+                    element.style.display = 'block';
+                    if (chevron) chevron.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    
