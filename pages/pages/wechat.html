@@ -186,6 +186,31 @@
             return /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
         }
 
+        // 显示微信提示
+        function showWechatModal() {
+            const wechatMask = document.getElementById('wechatMask');
+            const openInBrowser = document.getElementById('openInBrowser');
+			
+			wechatMask.classList.remove('hidden');
+            
+			// iOS设备上添加特殊提示
+            if (isIOS()) {
+                const iosTip = document.createElement('p');
+                iosTip.className = 'text-gray-500 text-sm mt-3 text-center';
+                iosTip.innerHTML = '<i class="fa fa-info-circle mr-1"></i> iPhone用户可能需要先复制链接再在浏览器中打开';
+                openInBrowser.parentNode.insertBefore(iosTip, openInBrowser.nextSibling);
+            }
+        }
+
+        // 关闭微信提示
+        function closeWechatModal() {
+            const wechatMask = document.getElementById('wechatMask');
+			wechatMask.classList.add('opacity-0');
+            setTimeout(() => {
+				wechatMask.classList.add('hidden');
+            }, 300);
+        }
+
         // 复制当前URL到剪贴板
         function copyCurrentUrl() {
             const textArea = document.createElement("textarea");
@@ -207,24 +232,11 @@
 
             // 如果在微信浏览器中打开，则显示提示遮罩层
             if (isWechatBrowser()) {
-                wechatMask.classList.remove('hidden');
-                
-                // iOS设备上添加特殊提示
-                if (isIOS()) {
-                    const iosTip = document.createElement('p');
-                    iosTip.className = 'text-gray-500 text-sm mt-3 text-center';
-                    iosTip.innerHTML = '<i class="fa fa-info-circle mr-1"></i> iPhone用户可能需要先复制链接再在浏览器中打开';
-                    openInBrowser.parentNode.insertBefore(iosTip, openInBrowser.nextSibling);
-                }
+                showWechatModal();
             }
 
-            // 关闭遮罩层
-            closeMask.addEventListener('click', function() {
-                wechatMask.classList.add('opacity-0');
-                setTimeout(() => {
-                    wechatMask.classList.add('hidden');
-                }, 300);
-            });
+            // 绑定关闭按钮事件
+            closeMask.addEventListener('click', closeWechatModal);
 
             // 在浏览器中打开按钮点击事件
             openInBrowser.addEventListener('click', function() {
@@ -255,6 +267,17 @@
             if (localStorage.getItem('ignoreWechatWarning') === 'true') {
                 wechatMask.classList.add('hidden');
             }
+
+            // 为所有下载链接添加微信检测
+            const downloadLinks = document.querySelectorAll('a[href^="https://pan.gzxlscan.cn"]');
+            downloadLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (isWechatBrowser()) {
+                        e.preventDefault();
+                        showWechatModal();
+                    }
+                });
+            });
         });
     </script>
 </body>

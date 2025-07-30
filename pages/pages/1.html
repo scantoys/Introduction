@@ -49,25 +49,6 @@
     </style>
 </head>
 <body class="bg-neutral-100 font-inter text-neutral-700 min-h-screen flex flex-col">
-    <!-- 导航栏 -->
-    <header class="bg-white sticky top-0 z-50 shadow-sm transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa fa-download text-primary text-2xl"></i>
-                <h1 class="text-xl md:text-2xl font-bold text-neutral-700">Driver<span class="text-primary">Download</span></h1>
-            </div>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#" class="font-medium text-primary hover:text-primary/80 transition-colors">首页</a>
-                <a href="#" class="font-medium text-neutral-500 hover:text-primary transition-colors">驱动下载</a>
-                <a href="#" class="font-medium text-neutral-500 hover:text-primary transition-colors">常见问题</a>
-                <a href="#" class="font-medium text-neutral-500 hover:text-primary transition-colors">联系我们</a>
-            </nav>
-            <button class="md:hidden text-neutral-700 text-xl">
-                <i class="fa fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
     <!-- 英雄区域 -->
     <section class="bg-gradient-to-br from-primary/90 to-primary py-16 md:py-24">
         <div class="container mx-auto px-4">
@@ -540,80 +521,6 @@
             </div>
         </section>
     </main>
-
-    <!-- 页脚 -->
-    <footer class="bg-neutral-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <i class="fa fa-download text-primary text-2xl"></i>
-                        <h3 class="text-xl font-bold">Driver<span class="text-primary">Download</span></h3>
-                    </div>
-                    <p class="text-neutral-400 mb-4">为您的 XL 系列打印机提供官方驱动程序和软件下载</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-neutral-400 hover:text-primary transition-colors">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">快速链接</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">首页</a></li>
-                        <li><a href="#windows-drivers" class="text-neutral-400 hover:text-white transition-colors">Windows 驱动</a></li>
-                        <li><a href="#mac-drivers" class="text-neutral-400 hover:text-white transition-colors">Mac 驱动</a></li>
-                        <li><a href="#linux-drivers" class="text-neutral-400 hover:text-white transition-colors">Linux 驱动</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">常见问题</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">支持</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">技术支持</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">驱动安装指南</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">联系我们</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">保修政策</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-white transition-colors">隐私政策</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">联系我们</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
-                            <span class="text-neutral-400">中国广东省广州市天河区科技园</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa fa-phone text-primary mr-3"></i>
-                            <span class="text-neutral-400">400-800-8888</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa fa-envelope text-primary mr-3"></i>
-                            <span class="text-neutral-400">support@example.com</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-neutral-700 mt-8 pt-8 text-center text-neutral-500 text-sm">
-                <p>&copy; 2025 XL 打印机驱动下载中心. 保留所有权利.</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         // 导航栏滚动效果
         window.addEventListener('scroll', function() {
