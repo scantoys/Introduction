@@ -49,43 +49,10 @@
             .link-hover:hover::after {
                 @apply w-full;
             }
-            .backdrop-blur-sm {
-                backdrop-filter: blur(4px);
-            }
-            .animate-fade-in {
-                animation: fadeIn 0.3s ease-in-out;
-            }
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            .animate-slide-up {
-                animation: slideUp 0.4s ease-out;
-            }
-            @keyframes slideUp {
-                from { transform: translateY(20px); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
-            }
         }
     </style>
 </head>
 <body class="font-inter bg-neutral-100 text-neutral-700 min-h-screen flex flex-col">
-    <!-- 微信提示层 -->
-    <div id="wechatModal" class="fixed inset-0 bg-black/80 z-50 hidden flex-col items-center justify-center p-4">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-2xl">
-            <div class="text-center">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
-                    <i class="fa fa-weixin text-red-500 text-3xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">在微信中打开</h3>
-                <p class="text-gray-600 mb-6">由于微信限制，需要点击右上角 ···，选择"在浏览器中打开"来下载驱动。</p>
-                <button id="closeWechatModal" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition duration-300">
-                    我知道了
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- 顶部导航栏 -->
     <header class="bg-white sticky top-0 z-50 shadow-sm transition-all duration-300" id="navbar">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,7 +64,6 @@
             </div>
         </div>
     </header>
-
     <!-- 主要内容 -->
     <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -371,6 +337,40 @@
         </div>
     </main>
 
+    
+    <!-- 微信引导弹窗 -->
+    <div id="wechatModal" class="fixed inset-0 bg-black/80 z-50 hidden">
+        <div class="container mx-auto px-4 py-8 h-full flex flex-col">
+            <div class="flex justify-end">
+                <div class="text-white text-right mt-4">
+                    <i class="fa fa-arrow-up text-4xl guide-arrow text-primary"></i>
+                    <p class="mt-2 text-lg">点击右上角<br>选择"在浏览器中打开"</p>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <div class="bg-white rounded-xl p-6 shadow-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                            <i class="fa fa-info text-primary"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">无法在微信内下载</h3>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        由于微信限制，无法直接在微信内完成下载。请按照以下步骤操作：
+                    </p>
+                    <ol class="list-decimal pl-5 text-gray-700 space-y-2 mb-6">
+                        <li>点击右上角 <i class="fa fa-ellipsis-h ml-1"></i> 按钮</li>
+                        <li>在弹出菜单中选择"在浏览器中打开"</li>
+                        <li>在浏览器中点击下载按钮完成安装</li>
+                    </ol>
+                    <button id="closeModal" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-lg transition-all duration-300">
+                        我知道了
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         // 滚动时导航栏样式变化
@@ -426,7 +426,7 @@
             }
 
             // 绑定关闭按钮事件
-            document.getElementById('closeWechatModal').addEventListener('click', closeWechatModal);
+            document.getElementById('closeModal').addEventListener('click', closeWechatModal);
 
             // 为所有下载链接添加微信检测
             const downloadLinks = document.querySelectorAll('a[href^="https://pan.gzxlscan.cn"]');
