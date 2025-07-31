@@ -70,6 +70,60 @@
     </style>
 </head>
 <body class="font-inter bg-neutral-100 text-neutral-700 min-h-screen flex flex-col">
+    
+    
+    <!-- 微信提示遮罩层 (默认隐藏) -->
+    <div id="wechatMask" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full relative shadow-2xl animate-slide-up">
+            <div class="absolute -top-3 -right-3 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-primary/90 transition-colors duration-300" id="closeMask">
+                <i class="fa fa-times"></i>
+            </div>
+            
+            <div class="flex items-start mb-6">
+                <div class="bg-primary/10 p-3 rounded-lg mr-4">
+                    <i class="fa fa-wechat text-2xl text-primary"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">在浏览器中打开</h3>
+                    <p class="text-gray-600">由于微信浏览器限制，部分功能可能无法正常使用。</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-4 pb-6">
+                <div class="flex items-center mb-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fa fa-share-alt text-gray-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-800 font-medium">点击右上角</p>
+                        <p class="text-gray-500 text-sm">选择"在浏览器中打开"</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fa fa-download text-gray-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-800 font-medium">下载完整应用</p>
+                        <p class="text-gray-500 text-sm">获取更好的体验</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-3">
+                <button id="openInBrowser" class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-white rounded-lg text-center font-medium transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center">
+                    <i class="fa fa-external-link mr-2"></i>在浏览器中打开
+                </button>
+                
+                <button id="copyLink" class="w-full py-3 px-4 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg text-center font-medium transition-all duration-300 flex items-center justify-center">
+                    <i class="fa fa-link mr-2"></i>复制链接地址
+                </button>
+            </div>
+        </div>
+    </div>
+
+
     <!-- 顶部导航栏 -->
     <header class="bg-white sticky top-0 z-50 shadow-sm transition-all duration-300" id="navbar">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -354,58 +408,6 @@
             </div>
         </div>
     </main>
-
-    
-    <!-- 微信提示遮罩层 (默认隐藏) -->
-    <div id="wechatMask" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full relative shadow-2xl animate-slide-up">
-            <div class="absolute -top-3 -right-3 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-primary/90 transition-colors duration-300" id="closeMask">
-                <i class="fa fa-times"></i>
-            </div>
-            
-            <div class="flex items-start mb-6">
-                <div class="bg-primary/10 p-3 rounded-lg mr-4">
-                    <i class="fa fa-wechat text-2xl text-primary"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">在浏览器中打开</h3>
-                    <p class="text-gray-600">由于微信浏览器限制，部分功能可能无法正常使用。</p>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-200 pt-4 pb-6">
-                <div class="flex items-center mb-4">
-                    <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fa fa-share-alt text-gray-500 text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">点击右上角</p>
-                        <p class="text-gray-500 text-sm">选择"在浏览器中打开"</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fa fa-download text-gray-500 text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">下载完整应用</p>
-                        <p class="text-gray-500 text-sm">获取更好的体验</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="space-y-3">
-                <button id="openInBrowser" class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-white rounded-lg text-center font-medium transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center">
-                    <i class="fa fa-external-link mr-2"></i>在浏览器中打开
-                </button>
-                
-                <button id="copyLink" class="w-full py-3 px-4 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg text-center font-medium transition-all duration-300 flex items-center justify-center">
-                    <i class="fa fa-link mr-2"></i>复制链接地址
-                </button>
-            </div>
-        </div>
-    </div>
 
 
     <script>
