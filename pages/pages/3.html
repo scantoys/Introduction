@@ -70,59 +70,21 @@
     </style>
 </head>
 <body class="font-inter bg-neutral-100 text-neutral-700 min-h-screen flex flex-col">
-    
-    
-    <!-- 微信提示遮罩层 (默认隐藏) -->
-    <div id="wechatMask" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full relative shadow-2xl animate-slide-up">
-            <div class="absolute -top-3 -right-3 bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-primary/90 transition-colors duration-300" id="closeMask">
-                <i class="fa fa-times"></i>
-            </div>
-            
-            <div class="flex items-start mb-6">
-                <div class="bg-primary/10 p-3 rounded-lg mr-4">
-                    <i class="fa fa-wechat text-2xl text-primary"></i>
+    <!-- 微信提示层 -->
+    <div id="wechatModal" class="fixed inset-0 bg-black/80 z-50 hidden flex-col items-center justify-center p-4">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-2xl">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
+                    <i class="fa fa-weixin text-red-500 text-3xl"></i>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">在浏览器中打开</h3>
-                    <p class="text-gray-600">由于微信浏览器限制，部分功能可能无法正常使用。</p>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-200 pt-4 pb-6">
-                <div class="flex items-center mb-4">
-                    <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fa fa-share-alt text-gray-500 text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">点击右上角</p>
-                        <p class="text-gray-500 text-sm">选择"在浏览器中打开"</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fa fa-download text-gray-500 text-xl"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">下载完整应用</p>
-                        <p class="text-gray-500 text-sm">获取更好的体验</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="space-y-3">
-                <button id="openInBrowser" class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-white rounded-lg text-center font-medium transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center">
-                    <i class="fa fa-external-link mr-2"></i>在浏览器中打开
-                </button>
-                
-                <button id="copyLink" class="w-full py-3 px-4 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg text-center font-medium transition-all duration-300 flex items-center justify-center">
-                    <i class="fa fa-link mr-2"></i>复制链接地址
+                <h3 class="text-xl font-bold text-gray-900 mb-2">在微信中打开</h3>
+                <p class="text-gray-600 mb-6">由于微信限制，需要点击右上角 ···，选择"在浏览器中打开"来下载驱动。</p>
+                <button id="closeWechatModal" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition duration-300">
+                    我知道了
                 </button>
             </div>
         </div>
     </div>
-
 
     <!-- 顶部导航栏 -->
     <header class="bg-white sticky top-0 z-50 shadow-sm transition-all duration-300" id="navbar">
@@ -425,41 +387,24 @@
                 navbar.classList.remove('backdrop-blur-sm');
             }
         });
-		
-		// 检测是否在微信浏览器中打开
+        // 检测是否在微信浏览器中打开
         function isWechatBrowser() {
             const ua = navigator.userAgent.toLowerCase();
             return ua.indexOf('micromessenger') !== -1;
         }
 
-        // 检测iOS设备
-        function isIOS() {
-            return /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-        }
-
         // 显示微信提示
         function showWechatModal() {
-            const wechatMask = document.getElementById('wechatMask');
-            const openInBrowser = document.getElementById('openInBrowser');
-			
-			wechatMask.classList.remove('hidden');
-            
-			// iOS设备上添加特殊提示
-            if (isIOS()) {
-                const iosTip = document.createElement('p');
-                iosTip.className = 'text-gray-500 text-sm mt-3 text-center';
-                iosTip.innerHTML = '<i class="fa fa-info-circle mr-1"></i> iPhone用户可能需要先复制链接再在浏览器中打开';
-                openInBrowser.parentNode.insertBefore(iosTip, openInBrowser.nextSibling);
-            }
+            const modal = document.getElementById('wechatModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
 
         // 关闭微信提示
         function closeWechatModal() {
-            const wechatMask = document.getElementById('wechatMask');
-			wechatMask.classList.add('opacity-0');
-            setTimeout(() => {
-				wechatMask.classList.add('hidden');
-            }, 300);
+            const modal = document.getElementById('wechatModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
         }
 
         // 复制当前URL到剪贴板
@@ -475,32 +420,13 @@
 
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            const wechatMask = document.getElementById('wechatMask');
-            const closeMask = document.getElementById('closeMask');
-            const openInBrowser = document.getElementById('openInBrowser');
-            const copyLink = document.getElementById('copyLink');
-
             // 如果在微信浏览器中打开，则显示提示遮罩层
             if (isWechatBrowser()) {
                 showWechatModal();
             }
 
             // 绑定关闭按钮事件
-            closeMask.addEventListener('click', closeWechatModal);
-
-            // 在浏览器中打开按钮点击事件
-            openInBrowser.addEventListener('click', function() {
-                alert('由于微信限制，请手动点击右上角菜单选择"在浏览器中打开"');
-            });
-
-            // 复制链接按钮点击事件
-            copyLink.addEventListener('click', function() {
-                if (copyCurrentUrl()) {
-                    alert('链接已复制到剪贴板！');
-                } else {
-                    alert('复制失败，请手动复制链接：' + window.location.href);
-                }
-            });
+            document.getElementById('closeWechatModal').addEventListener('click', closeWechatModal);
 
             // 为所有下载链接添加微信检测
             const downloadLinks = document.querySelectorAll('a[href^="https://pan.gzxlscan.cn"]');
