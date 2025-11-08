@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>资江蓝牙打印APP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义主题 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36CFC9',
+            accent: '#FF7D00',
+            dark: '#1D2129',
+            light: '#F2F3F5'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .card-shadow {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+      .btn-hover {
+        transition: all 0.3s ease;
+      }
+      .btn-hover:hover {
+        transform: translateY(-2px);
+      }
+      .feature-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .page-transition {
+        transition: transform 0.3s ease-in-out;
+      }
+      .battery-level {
+        height: 12px;
+        border-radius: 3px;
+        transition: width 0.5s ease;
+      }
+      /* 手机端专用样式 */
+      @media (max-width: 640px) {
+        .mobile-padding {
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+        }
+        .feature-grid {
+          gap: 0.75rem !important;
+        }
+        .feature-card {
+          padding: 1rem !important;
+        }
+      }
+    }
+  </style>
+</head>
+<body class="font-inter bg-gray-50 text-dark min-h-screen overflow-x-hidden">
+  <!-- 页面容器 -->
+  <div class="relative">
+    <!-- 首页 - 移除了标题栏 -->
+    <div id="home-page" class="page-transition absolute inset-0">
+      <!-- 主内容区 - 取消了pt-16，因为移除了标题栏 -->
+      <main class="container mx-auto px-4 pt-4 pb-20 mobile-padding">
+        <!-- 设备连接状态 -->
+        <section class="bg-white rounded-xl p-4 mb-5 card-shadow mt-3">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-base font-semibold">已连接设备</h2>
+            <button class="text-primary text-sm flex items-center">
+              <i class="fa fa-plus-circle mr-1"></i> 添加设备
+            </button>
+          </div>
+          
+          <div class="flex items-center p-3 border border-gray-100 rounded-lg bg-primary/5 cursor-pointer" id="connected-device">
+            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-3">
+              <i class="fa fa-print"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-medium truncate">蓝牙打印机 Pro</h3>
+              <p class="text-xs text-gray-500">已连接 · 电量 78%</p>
+            </div>
+            <div class="flex space-x-1">
+              <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-colors">
+                <i class="fa fa-refresh"></i>
+              </button>
+              <button class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100 transition-colors">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+        
+        <!-- 打印方式标题 -->
+        <section class="mb-3">
+          <h2 class="text-lg font-bold mb-1">打印方式</h2>
+          <p class="text-gray-500 text-xs">选择您需要的打印方式</p>
+        </section>
+        
+        <!-- 合并后的打印方式网格 - 优化展示样式 -->
+        <section class="grid grid-cols-2 gap-3 feature-grid">
+          <!-- 拍照打印（突出显示为第一行全宽） -->
+          <div class="bg-gradient-to-r from-primary to-secondary rounded-xl p-4 card-shadow relative overflow-hidden cursor-pointer btn-hover col-span-2">
+            <div class="absolute right-0 top-0 w-24 h-24 bg-white/10 rounded-full -mr-12 -mt-12"></div>
+            <div class="absolute left-6 bottom-6 w-16 h-16 bg-white/10 rounded-full"></div>
+            
+            <div class="relative z-10 flex items-center justify-between">
+              <div>
+                <div class="inline-block bg-white/20 px-2 py-1 rounded text-xs mb-1">推荐</div>
+                <h3 class="font-bold text-white text-lg">拍照打印</h3>
+                <p class="text-white/80 text-xs">直接拍照，一键打印</p>
+              </div>
+              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white">
+                <i class="fa fa-camera text-xl"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 文档打印 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-primary/10 text-primary rounded-lg mb-2">
+              <i class="fa fa-file-text-o"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">文档打印</h3>
+            <p class="text-xs text-gray-500">打印各种格式文档</p>
+          </div>
+          
+          <!-- 图片打印 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-secondary/10 text-secondary rounded-lg mb-2">
+              <i class="fa fa-picture-o"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">图片打印</h3>
+            <p class="text-xs text-gray-500">打印本地相册图片</p>
+          </div>
+          
+          <!-- 网页打印 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-purple-100 text-purple-500 rounded-lg mb-2">
+              <i class="fa fa-globe"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">网页打印</h3>
+            <p class="text-xs text-gray-500">打印网页内容</p>
+          </div>
+          
+          <!-- 模板打印 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-green-100 text-green-500 rounded-lg mb-2">
+              <i class="fa fa-file-template-o"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">模板打印</h3>
+            <p class="text-xs text-gray-500">使用预设模板</p>
+          </div>
+          
+          <!-- 纹身打印 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-pink-100 text-pink-500 rounded-lg mb-2">
+              <i class="fa fa-paint-brush"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">纹身打印</h3>
+            <p class="text-xs text-gray-500">纹身图案打印</p>
+          </div>
+          
+          <!-- 随心扫 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-blue-100 text-blue-500 rounded-lg mb-2">
+              <i class="fa fa-qrcode"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">随心扫</h3>
+            <p class="text-xs text-gray-500">扫描后打印</p>
+          </div>
+          
+          <!-- 去手写 -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-yellow-100 text-yellow-500 rounded-lg mb-2">
+              <i class="fa fa-eraser"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">去手写</h3>
+            <p class="text-xs text-gray-500">去除手写痕迹</p>
+          </div>
+          
+          <!-- OCR -->
+          <div class="bg-white rounded-xl p-4 card-shadow hover:shadow-lg transition-shadow cursor-pointer btn-hover feature-card">
+            <div class="feature-icon bg-red-100 text-red-500 rounded-lg mb-2">
+              <i class="fa fa-font"></i>
+            </div>
+            <h3 class="font-medium text-sm mb-1">OCR</h3>
+            <p class="text-xs text-gray-500">文字识别后打印</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    
+    <!-- 设备详情页面 - 保留标题栏 -->
+    <div id="device-detail-page" class="page-transition absolute inset-0 transform translate-x-full">
+      <!-- 顶部导航栏 -->
+      <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
+          <button class="back-btn text-gray-500 hover:text-primary transition-colors p-1">
+            <i class="fa fa-arrow-left text-lg"></i>
+          </button>
+          <h1 class="text-lg font-bold text-primary">设备详情</h1>
+          <div class="w-8"></div> <!-- 占位元素，保持标题居中 -->
+        </div>
+      </header>
+
+      <!-- 主内容区 -->
+      <main class="container mx-auto px-4 pt-16 pb-20 mobile-padding">
+        <div class="bg-white rounded-xl overflow-hidden card-shadow mt-3">
+          <!-- 设备基本信息 -->
+          <div class="p-4 border-b">
+            <div class="flex items-center">
+              <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-3">
+                <i class="fa fa-print text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-lg font-bold">蓝牙打印机 Pro</h2>
+                <p class="text-sm text-green-500 flex items-center mt-1">
+                  <i class="fa fa-check-circle mr-1"></i> 已连接
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 设备详细参数 -->
+          <div class="p-4">
+            <div class="space-y-5">
+              <!-- 参数项 - 手机端垂直排列 -->
+              <div>
+                <h3 class="text-sm text-gray-500 mb-1">蓝牙名称</h3>
+                <p class="font-medium">Printer-Pro-8820</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm text-gray-500 mb-1">固件版本</h3>
+                <p class="font-medium">v2.5.3</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm text-gray-500 mb-1">连接方式</h3>
+                <p class="font-medium">蓝牙 5.0</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm text-gray-500 mb-1">纸张类型</h3>
+                <p class="font-medium">热敏纸 (58mm × 30m)</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm text-gray-500 mb-1">打印分辨率</h3>
+                <p class="font-medium">203 DPI</p>
+              </div>
+              
+              <div>
+                <h3 class="text-sm text-gray-500 mb-1">电量</h3>
+                <div class="flex items-center mt-1">
+                  <div class="w-28 h-6 border border-gray-200 rounded-full overflow-hidden mr-3">
+                    <div class="battery-level bg-green-500" style="width: 78%"></div>
+                  </div>
+                  <span class="font-medium">78%</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 设备操作按钮 -->
+            <div class="mt-6 space-y-3">
+              <button class="w-full py-3 bg-primary text-white rounded-lg font-medium flex items-center justify-center btn-hover">
+                <i class="fa fa-refresh mr-2"></i> 重新连接
+              </button>
+              
+              <button class="w-full py-3 bg-gray-100 text-gray-700 rounded-lg font-medium flex items-center justify-center btn-hover">
+                <i class="fa fa-cog mr-2"></i> 打印设置
+              </button>
+              
+              <button class="w-full py-3 bg-red-50 text-red-500 rounded-lg font-medium flex items-center justify-center btn-hover">
+                <i class="fa fa-times mr-2"></i> 断开连接
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <!-- 历史页面 - 保留标题栏 -->
+    <div id="history-page" class="page-transition absolute inset-0 transform translate-x-full">
+      <!-- 顶部导航栏 -->
+      <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
+          <button class="back-btn text-gray-500 hover:text-primary transition-colors p-1">
+            <i class="fa fa-arrow-left text-lg"></i>
+          </button>
+          <h1 class="text-lg font-bold text-primary">打印历史</h1>
+          <button class="text-primary text-sm p-1">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- 主内容区 -->
+      <main class="container mx-auto px-4 pt-16 pb-20 mobile-padding">
+        <div class="bg-white rounded-xl overflow-hidden card-shadow mt-3">
+          <div class="divide-y">
+            <div class="p-3 flex items-center">
+              <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-3">
+                <i class="fa fa-file-pdf-o"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-sm truncate">会议记录.pdf</h3>
+                <p class="text-xs text-gray-500 truncate">今天 14:30 · 2页 · 蓝牙打印机 Pro</p>
+              </div>
+              <div class="flex space-x-1">
+                <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-colors">
+                  <i class="fa fa-print"></i>
+                </button>
+                <button class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100 transition-colors">
+                  <i class="fa fa-ellipsis-v"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-3 flex items-center">
+              <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary mr-3">
+                <i class="fa fa-file-image-o"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-sm truncate">产品照片.jpg</h3>
+                <p class="text-xs text-gray-500 truncate">昨天 09:15 · 1页 · 蓝牙打印机 Pro</p>
+              </div>
+              <div class="flex space-x-1">
+                <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-colors">
+                  <i class="fa fa-print"></i>
+                </button>
+                <button class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100 transition-colors">
+                  <i class="fa fa-ellipsis-v"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-3 flex items-center">
+              <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center text-purple-500 mr-3">
+                <i class="fa fa-file-text-o"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-sm truncate">工作计划.docx</h3>
+                <p class="text-xs text-gray-500 truncate">2023/10/12 16:40 · 3页 · 便携式蓝牙打印机 X5</p>
+              </div>
+              <div class="flex space-x-1">
+                <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-colors">
+                  <i class="fa fa-print"></i>
+                </button>
+                <button class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100 transition-colors">
+                  <i class="fa fa-ellipsis-v"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <!-- 我的页面 - 保留标题栏 -->
+    <div id="profile-page" class="page-transition absolute inset-0 transform translate-x-full">
+      <!-- 顶部导航栏 -->
+      <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
+          <button class="back-btn text-gray-500 hover:text-primary transition-colors p-1">
+            <i class="fa fa-arrow-left text-lg"></i>
+          </button>
+          <h1 class="text-lg font-bold text-primary">我的</h1>
+          <div class="w-8"></div> <!-- 占位元素，保持标题居中 -->
+        </div>
+      </header>
+
+      <!-- 主内容区 -->
+      <main class="container mx-auto px-4 pt-16 pb-20 mobile-padding">
+        <!-- 设置选项 -->
+        <section class="bg-white rounded-xl mb-5 card-shadow overflow-hidden mt-3">
+          <div class="divide-y">
+            <!-- 语言设置 -->
+            <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-3">
+                  <i class="fa fa-language"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium">语言设置</h3>
+                  <p class="text-xs text-gray-500">选择应用显示语言</p>
+                </div>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+            
+            <!-- 帮助中心 -->
+            <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary mr-3">
+                  <i class="fa fa-question-circle"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium">帮助中心</h3>
+                  <p class="text-xs text-gray-500">常见问题与使用指南</p>
+                </div>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+            
+            <!-- 关于我们 -->
+            <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center text-purple-500 mr-3">
+                  <i class="fa fa-info-circle"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium">关于我们</h3>
+                  <p class="text-xs text-gray-500">应用版本与开发者信息</p>
+                </div>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    
+    <!-- 底部导航 - 增大点击区域 -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2 px-6 z-40">
+      <div class="flex justify-around items-center">
+        <button id="home-btn" class="flex flex-col items-center text-primary py-1 px-4">
+          <i class="fa fa-home text-xl"></i>
+          <span class="text-xs mt-1">首页</span>
+        </button>
+        <button id="history-btn" class="flex flex-col items-center text-gray-400 hover:text-primary transition-colors py-1 px-4">
+          <i class="fa fa-history text-xl"></i>
+          <span class="text-xs mt-1">历史</span>
+        </button>
+        <button id="profile-btn" class="flex flex-col items-center text-gray-400 hover:text-primary transition-colors py-1 px-4">
+          <i class="fa fa-user-o text-xl"></i>
+          <span class="text-xs mt-1">我的</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 获取页面元素
+    const homePage = document.getElementById('home-page');
+    const historyPage = document.getElementById('history-page');
+    const profilePage = document.getElementById('profile-page');
+    const deviceDetailPage = document.getElementById('device-detail-page');
+    const homeBtn = document.getElementById('home-btn');
+    const historyBtn = document.getElementById('history-btn');
+    const profileBtn = document.getElementById('profile-btn');
+    const backBtns = document.querySelectorAll('.back-btn');
+    const connectedDevice = document.getElementById('connected-device');
+    
+    // 功能按钮点击效果
+    const featureCards = document.querySelectorAll('.card-shadow');
+    featureCards.forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.add('scale-95');
+        setTimeout(() => {
+          this.classList.remove('scale-95');
+        }, 150);
+      });
+    });
+    
+    // 页面切换函数
+    function showHomePage() {
+      homePage.classList.remove('translate-x-full');
+      historyPage.classList.add('translate-x-full');
+      profilePage.classList.add('translate-x-full');
+      deviceDetailPage.classList.add('translate-x-full');
+      
+      homeBtn.classList.add('text-primary');
+      homeBtn.classList.remove('text-gray-400');
+      historyBtn.classList.remove('text-primary');
+      historyBtn.classList.add('text-gray-400');
+      profileBtn.classList.remove('text-primary');
+      profileBtn.classList.add('text-gray-400');
+    }
+    
+    function showHistoryPage() {
+      homePage.classList.add('translate-x-full');
+      historyPage.classList.remove('translate-x-full');
+      profilePage.classList.add('translate-x-full');
+      deviceDetailPage.classList.add('translate-x-full');
+      
+      homeBtn.classList.remove('text-primary');
+      homeBtn.classList.add('text-gray-400');
+      historyBtn.classList.add('text-primary');
+      historyBtn.classList.remove('text-gray-400');
+      profileBtn.classList.remove('text-primary');
+      profileBtn.classList.add('text-gray-400');
+    }
+    
+    function showProfilePage() {
+      homePage.classList.add('translate-x-full');
+      historyPage.classList.add('translate-x-full');
+      profilePage.classList.remove('translate-x-full');
+      deviceDetailPage.classList.add('translate-x-full');
+      
+      homeBtn.classList.remove('text-primary');
+      homeBtn.classList.add('text-gray-400');
+      historyBtn.classList.remove('text-primary');
+      historyBtn.classList.add('text-gray-400');
+      profileBtn.classList.add('text-primary');
+      profileBtn.classList.remove('text-gray-400');
+    }
+    
+    function showDeviceDetailPage() {
+      homePage.classList.add('translate-x-full');
+      historyPage.classList.add('translate-x-full');
+      profilePage.classList.add('translate-x-full');
+      deviceDetailPage.classList.remove('translate-x-full');
+      
+      homeBtn.classList.remove('text-primary');
+      homeBtn.classList.add('text-gray-400');
+      historyBtn.classList.remove('text-primary');
+      historyBtn.classList.add('text-gray-400');
+      profileBtn.classList.remove('text-primary');
+      profileBtn.classList.add('text-gray-400');
+    }
+    
+    // 绑定事件监听器
+    homeBtn.addEventListener('click', showHomePage);
+    historyBtn.addEventListener('click', showHistoryPage);
+    profileBtn.addEventListener('click', showProfilePage);
+    backBtns.forEach(btn => {
+      btn.addEventListener('click', showHomePage);
+    });
+    connectedDevice.addEventListener('click', showDeviceDetailPage);
+    
+    // 为可点击元素添加点击效果和增大点击区域
+    const clickableItems = document.querySelectorAll('.cursor-pointer, .back-btn, #history-btn, #profile-btn');
+    clickableItems.forEach(item => {
+      // 增大点击区域
+      if (!item.classList.contains('expanded-click-area')) {
+        item.classList.add('p-1');
+        item.classList.add('expanded-click-area');
+      }
+      
+      // 点击反馈
+      item.addEventListener('click', function() {
+        this.classList.add('scale-95');
+        setTimeout(() => {
+          this.classList.remove('scale-95');
+        }, 150);
+      });
+    });
+  </script>
+</body>
+</html>
