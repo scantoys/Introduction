@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>资江蓝牙打印APP</title>
+  <title>蓝牙打印助手</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   
@@ -75,42 +75,49 @@
 <body class="font-inter bg-gray-50 text-dark min-h-screen overflow-x-hidden">
   <!-- 页面容器 -->
   <div class="relative">
-    <!-- 首页 - 移除了标题栏 -->
+    <!-- 首页 - 添加标题栏 -->
     <div id="home-page" class="page-transition absolute inset-0">
-      <!-- 主内容区 - 取消了pt-16，因为移除了标题栏 -->
-      <main class="container mx-auto px-4 pt-4 pb-20 mobile-padding">
-        <!-- 设备连接状态 -->
+      <!-- 顶部导航栏 - 与其他页面保持一致 -->
+      <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
+          <div class="w-8"></div> <!-- 占位元素，保持标题居中 -->
+          <h1 class="text-lg font-bold text-primary">蓝牙打印助手</h1>
+          <div class="w-8"></div> <!-- 移除添加设备按钮，替换为占位元素 -->
+        </div>
+      </header>
+      
+      <!-- 主内容区 - 增加pt-16适配标题栏 -->
+      <main class="container mx-auto px-4 pt-16 pb-20 mobile-padding">
+        <!-- 设备连接状态 - 调整边距并移除描述 -->
         <section class="bg-white rounded-xl p-4 mb-5 card-shadow mt-3">
-          <div class="flex justify-between items-center mb-3">
-            <h2 class="text-base font-semibold">已连接设备</h2>
-            <button class="text-primary text-sm flex items-center">
-              <i class="fa fa-plus-circle mr-1"></i> 添加设备
-            </button>
-          </div>
-          
-          <div class="flex items-center p-3 border border-gray-100 rounded-lg bg-primary/5 cursor-pointer" id="connected-device">
+          <!-- 蓝牙设备信息区域 -->
+          <div class="flex items-center p-2 border border-gray-100 rounded-lg bg-primary/5 cursor-pointer" id="connected-device">
             <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-3">
               <i class="fa fa-print"></i>
             </div>
             <div class="flex-1 min-w-0">
-              <h3 class="font-medium truncate">蓝牙打印机 Pro</h3>
-              <p class="text-xs text-gray-500">已连接 · 电量 78%</p>
+              <h3 class="font-medium truncate device-name">蓝牙打印机 Pro</h3>
+              <p class="text-xs text-gray-500 device-status">已连接 · 电量 78%</p>
             </div>
-            <div class="flex space-x-1">
-              <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-colors">
+            <div class="flex space-x-1 device-actions">
+              <button class="p-2 text-gray-500 hover:text-primary rounded-full hover:bg-gray-100 transition-colors refresh-btn">
                 <i class="fa fa-refresh"></i>
               </button>
-              <button class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100 transition-colors">
+              <button class="p-2 text-gray-500 hover:text-red-500 rounded-full hover:bg-gray-100 transition-colors disconnect-btn">
                 <i class="fa fa-times"></i>
+              </button>
+            </div>
+            <div class="connect-device-btn hidden">
+              <button class="px-3 py-1 bg-primary text-white text-sm rounded-lg btn-hover">
+                连接设备
               </button>
             </div>
           </div>
         </section>
         
-        <!-- 打印方式标题 -->
+        <!-- 打印方式标题 - 只保留标题 -->
         <section class="mb-3">
-          <h2 class="text-lg font-bold mb-1">打印方式</h2>
-          <p class="text-gray-500 text-xs">选择您需要的打印方式</p>
+          <h2 class="text-lg font-bold">打印方式</h2>
         </section>
         
         <!-- 合并后的打印方式网格 - 优化展示样式 -->
@@ -207,7 +214,7 @@
       </main>
     </div>
     
-    <!-- 设备详情页面 - 保留标题栏 -->
+    <!-- 设备详情页面 - 保留标题栏和返回箭头 -->
     <div id="device-detail-page" class="page-transition absolute inset-0 transform translate-x-full">
       <!-- 顶部导航栏 -->
       <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
@@ -230,8 +237,8 @@
                 <i class="fa fa-print text-xl"></i>
               </div>
               <div>
-                <h2 class="text-lg font-bold">蓝牙打印机 Pro</h2>
-                <p class="text-sm text-green-500 flex items-center mt-1">
+                <h2 class="text-lg font-bold device-name-detail">蓝牙打印机 Pro</h2>
+                <p class="text-sm text-green-500 flex items-center mt-1 device-status-detail">
                   <i class="fa fa-check-circle mr-1"></i> 已连接
                 </p>
               </div>
@@ -280,7 +287,7 @@
             
             <!-- 设备操作按钮 -->
             <div class="mt-6 space-y-3">
-              <button class="w-full py-3 bg-primary text-white rounded-lg font-medium flex items-center justify-center btn-hover">
+              <button class="w-full py-3 bg-primary text-white rounded-lg font-medium flex items-center justify-center btn-hover refresh-btn">
                 <i class="fa fa-refresh mr-2"></i> 重新连接
               </button>
               
@@ -288,7 +295,7 @@
                 <i class="fa fa-cog mr-2"></i> 打印设置
               </button>
               
-              <button class="w-full py-3 bg-red-50 text-red-500 rounded-lg font-medium flex items-center justify-center btn-hover">
+              <button class="w-full py-3 bg-red-50 text-red-500 rounded-lg font-medium flex items-center justify-center btn-hover disconnect-btn">
                 <i class="fa fa-times mr-2"></i> 断开连接
               </button>
             </div>
@@ -297,14 +304,12 @@
       </main>
     </div>
     
-    <!-- 历史页面 - 保留标题栏 -->
+    <!-- 历史页面 - 移除左上角返回箭头 -->
     <div id="history-page" class="page-transition absolute inset-0 transform translate-x-full">
       <!-- 顶部导航栏 -->
       <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
-          <button class="back-btn text-gray-500 hover:text-primary transition-colors p-1">
-            <i class="fa fa-arrow-left text-lg"></i>
-          </button>
+          <div class="w-8"></div> <!-- 占位元素替代返回箭头，保持标题居中 -->
           <h1 class="text-lg font-bold text-primary">打印历史</h1>
           <button class="text-primary text-sm p-1">
             <i class="fa fa-trash-o"></i>
@@ -374,14 +379,12 @@
       </main>
     </div>
     
-    <!-- 我的页面 - 保留标题栏 -->
+    <!-- 我的页面 - 移除左上角返回箭头 -->
     <div id="profile-page" class="page-transition absolute inset-0 transform translate-x-full">
       <!-- 顶部导航栏 -->
       <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between mobile-padding">
-          <button class="back-btn text-gray-500 hover:text-primary transition-colors p-1">
-            <i class="fa fa-arrow-left text-lg"></i>
-          </button>
+          <div class="w-8"></div> <!-- 占位元素替代返回箭头，保持标题居中 -->
           <h1 class="text-lg font-bold text-primary">我的</h1>
           <div class="w-8"></div> <!-- 占位元素，保持标题居中 -->
         </div>
@@ -466,8 +469,16 @@
     const homeBtn = document.getElementById('home-btn');
     const historyBtn = document.getElementById('history-btn');
     const profileBtn = document.getElementById('profile-btn');
-    const backBtns = document.querySelectorAll('.back-btn');
+    const backBtn = document.querySelector('.back-btn');
     const connectedDevice = document.getElementById('connected-device');
+    const disconnectBtns = document.querySelectorAll('.disconnect-btn');
+    const refreshBtns = document.querySelectorAll('.refresh-btn');
+    const deviceActions = document.querySelector('.device-actions');
+    const connectDeviceBtn = document.querySelector('.connect-device-btn');
+    const deviceName = document.querySelector('.device-name');
+    const deviceStatus = document.querySelector('.device-status');
+    const deviceNameDetail = document.querySelector('.device-name-detail');
+    const deviceStatusDetail = document.querySelector('.device-status-detail');
     
     // 功能按钮点击效果
     const featureCards = document.querySelectorAll('.card-shadow');
@@ -537,25 +548,92 @@
       profileBtn.classList.add('text-gray-400');
     }
     
+    // 断开连接功能
+    function disconnectDevice() {
+      // 更新首页设备状态
+      deviceName.textContent = "未连接设备";
+      deviceStatus.textContent = "请连接蓝牙打印机";
+      deviceStatus.classList.add('text-orange-500');
+      
+      // 隐藏刷新和断开按钮，显示连接按钮
+      deviceActions.classList.add('hidden');
+      connectDeviceBtn.classList.remove('hidden');
+      
+      // 更新设备详情页状态
+      deviceNameDetail.textContent = "未连接设备";
+      deviceStatusDetail.innerHTML = '<i class="fa fa-exclamation-circle mr-1"></i> 已断开连接';
+      deviceStatusDetail.classList.remove('text-green-500');
+      deviceStatusDetail.classList.add('text-orange-500');
+      
+      // 返回首页
+      showHomePage();
+    }
+    
+    // 重新连接功能
+    function reconnectDevice() {
+      // 更新首页设备状态
+      deviceName.textContent = "蓝牙打印机 Pro";
+      deviceStatus.textContent = "已连接 · 电量 78%";
+      deviceStatus.classList.remove('text-orange-500');
+      
+      // 显示刷新和断开按钮，隐藏连接按钮
+      deviceActions.classList.remove('hidden');
+      connectDeviceBtn.classList.add('hidden');
+      
+      // 更新设备详情页状态
+      deviceNameDetail.textContent = "蓝牙打印机 Pro";
+      deviceStatusDetail.innerHTML = '<i class="fa fa-check-circle mr-1"></i> 已连接';
+      deviceStatusDetail.classList.add('text-green-500');
+      deviceStatusDetail.classList.remove('text-orange-500');
+    }
+    
     // 绑定事件监听器
     homeBtn.addEventListener('click', showHomePage);
     historyBtn.addEventListener('click', showHistoryPage);
     profileBtn.addEventListener('click', showProfilePage);
-    backBtns.forEach(btn => {
-      btn.addEventListener('click', showHomePage);
+    
+    if (backBtn) {
+      backBtn.addEventListener('click', showHomePage);
+    }
+    
+    connectedDevice.addEventListener('click', function() {
+      // 只有在已连接状态下才能进入设备详情页
+      if (!connectDeviceBtn.classList.contains('hidden')) {
+        return;
+      }
+      showDeviceDetailPage();
     });
-    connectedDevice.addEventListener('click', showDeviceDetailPage);
+    
+    // 绑定断开连接按钮事件
+    disconnectBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation(); // 防止事件冒泡
+        disconnectDevice();
+      });
+    });
+    
+    // 绑定重新连接按钮事件
+    refreshBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation(); // 防止事件冒泡
+        reconnectDevice();
+      });
+    });
+    
+    // 绑定连接设备按钮事件
+    connectDeviceBtn.addEventListener('click', function(e) {
+      e.stopPropagation(); // 防止事件冒泡
+      reconnectDevice();
+    });
     
     // 为可点击元素添加点击效果和增大点击区域
     const clickableItems = document.querySelectorAll('.cursor-pointer, .back-btn, #history-btn, #profile-btn');
     clickableItems.forEach(item => {
-      // 增大点击区域
       if (!item.classList.contains('expanded-click-area')) {
         item.classList.add('p-1');
         item.classList.add('expanded-click-area');
       }
       
-      // 点击反馈
       item.addEventListener('click', function() {
         this.classList.add('scale-95');
         setTimeout(() => {
