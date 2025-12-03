@@ -1,0 +1,209 @@
+{
+  "site": {
+    "title": "驱动下载中心 - ScanPrint",
+    "navTitle": "驱动下载中心",
+    "heading": "驱动下载中心",
+    "subtitle": ""
+  },
+  "groups": [
+    {
+      "id": "xl-p801-xl-p801x-gd88-gd-85-xl-a401c-driver",
+      "groupTitle": "XL-P801/XL-P801X/GD88/GD-85/XL-A401C driver",
+      "groupDesc": "Driver for XL-P801/XL-P801X/GD88/GD-85/XL-A401C series printers",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "XL-P801 Driver",
+          "version": "V1.1.8",
+          "description": "",
+          "updatedAtText": "Updated on October 29, 2025",
+          "updatedAt": "2025-10-29",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/fhpwp0"
+        },
+        {
+          "platform": "Windows",
+          "fileName": "XL-P801/XL-P801X/GD88/GD-85/XL-A401C Printer Driver Documentation",
+          "version": "",
+          "description": "Includes installation instructions and troubleshooting guide",
+          "updatedAtText": "Updated on March 18, 2025",
+          "updatedAt": "2025-03-18",
+          "type": "doc",
+          "url": "https://pan.gzxlscan.cn/s/tzv174"
+        },
+        {
+          "platform": "Mac OS",
+          "fileName": "XL-P801/XL-P801X/GD-88 Mac Driver",
+          "version": "V1.1.0, for macOS 10.15 and above",
+          "description": "",
+          "updatedAtText": "Updated on October 29, 2025",
+          "updatedAt": "2025-10-29",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/x8pgpu"
+        }
+      ]
+    },
+    {
+      "id": "xl-a408-t802-a42-a41-driver",
+      "groupTitle": "XL-A408/T802/A42/A41 driver",
+      "groupDesc": "Driver for XL-A408/T802/A42/A41 series printers",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "XL-A408/T802 Driver",
+          "version": "1.2.1.13",
+          "description": "",
+          "updatedAtText": "Updated on July 10, 2025",
+          "updatedAt": "2025-07-10",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/31gseg"
+        },
+        {
+          "platform": "Mac OS",
+          "fileName": "XL-A408/T802 Mac Driver",
+          "version": "1.2.1.13, for macOS 10.15 and above",
+          "description": "",
+          "updatedAtText": "Updated on July 10, 2025",
+          "updatedAt": "2025-07-10",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/cs580y"
+        },
+        {
+          "platform": "Mac OS",
+          "fileName": "XL-A408/T802 MacOS Printing Tutorial",
+          "version": "",
+          "description": "Includes installation instructions for Mac",
+          "updatedAtText": "Updated on June 5, 2025",
+          "updatedAt": "2025-06-05",
+          "type": "doc",
+          "url": "https://pan.gzxlscan.cn/s/llt86b"
+        },
+        {
+          "platform": "Linux",
+          "fileName": "XL-A408/T802 Linux Driver",
+          "version": "",
+          "description": "Applicable to mainstream Linux distributions such as Ubuntu, Debian, Fedora, etc.",
+          "updatedAtText": "Updated on February 18, 2025",
+          "updatedAt": "2025-02-18",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/y5ail8"
+        }
+      ]
+    },
+    {
+      "id": "xl-p808-driver",
+      "groupTitle": "XL-P808 driver",
+      "groupDesc": "Driver for XL-P808 series printers",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "XL-P808 Windows Driver",
+          "version": "V1.2.2",
+          "description": "",
+          "updatedAtText": "Updated October 25, 2025",
+          "updatedAt": "",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/h8i7q6"
+        },
+        {
+          "platform": "Mac OS",
+          "fileName": "XL-P808 Mac Driver",
+          "version": "V1.0.7",
+          "description": "",
+          "updatedAtText": "Updated on November 5, 2025",
+          "updatedAt": "2025-11-05",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/73xlig"
+        }
+      ]
+    },
+    {
+      "id": "c80s-driver",
+      "groupTitle": "C80S driver",
+      "groupDesc": "Driver for C80S series printers",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "C80S Windows Driver",
+          "version": "V1.2.4.5",
+          "description": "",
+          "updatedAtText": "Updated on September 27, 2025",
+          "updatedAt": "2025-09-27",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/0020xc"
+        },
+        {
+          "platform": "Mac OS",
+          "fileName": "C80S Mac Driver",
+          "version": "V1.2.3",
+          "description": "",
+          "updatedAtText": "Updated on September 27, 2024",
+          "updatedAt": "2024-09-27",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/fzduir"
+        }
+      ]
+    },
+    {
+      "id": "lt-a10-lt-a20-lt-p10-lt-p20-driver",
+      "groupTitle": "LT-A10/LT-A20/LT-P10/LT-P20 driver",
+      "groupDesc": "Driver for LT-10 series printers",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "LT-A10/LT-A20/LT-P10/LT-P20 Windows Driver",
+          "version": "V1.3.4.6",
+          "description": "",
+          "updatedAtText": "Updated on September 27, 2025",
+          "updatedAt": "2025-09-27",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/dmb7bx"
+        },
+        {
+          "platform": "Mac OS",
+          "fileName": "LT-A10/LT-A20/LT-P10/LT-P20 Mac Driver",
+          "version": "V1.3.4",
+          "description": "",
+          "updatedAtText": "Updated on September 27, 2024",
+          "updatedAt": "2024-09-27",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/v4ypxx"
+        }
+      ]
+    },
+    {
+      "id": "a401s-lt-d80s-drivers",
+      "groupTitle": "A401S/LT-D80S Drivers",
+      "groupDesc": "A401S/LT-D80S Drivers and Software for Windows",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "",
+          "version": "",
+          "description": "Contains the latest drivers and supporting software",
+          "updatedAtText": "Updated on September 15, 2025",
+          "updatedAt": "2025-09-15",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/jrhaiz"
+        }
+      ]
+    },
+    {
+      "id": "9250-series-drivers",
+      "groupTitle": "9250 Series Drivers",
+      "groupDesc": "9250 Series Device Drivers and Software for Windows",
+      "items": [
+        {
+          "platform": "Windows",
+          "fileName": "",
+          "version": "",
+          "description": "Contains the latest drivers and supporting software",
+          "updatedAtText": "Updated on June 15, 2025",
+          "updatedAt": "2025-06-15",
+          "type": "driver",
+          "url": "https://pan.gzxlscan.cn/s/87rk9c"
+        }
+      ]
+    }
+  ]
+}

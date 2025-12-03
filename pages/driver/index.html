@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+    <title>Driver Download - ScanPrint</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+          rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#4080FF',
+                        accent: '#0E42D2',
+                        neutral: {
+                            100: '#F5F7FA',
+                            200: '#E5E6EB',
+                            300: '#C9CDD4',
+                            400: '#86909C',
+                            500: '#4E5969',
+                            600: '#272E3B',
+                            700: '#1D2129',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .link-hover {
+                @apply relative overflow-hidden;
+            }
+            .link-hover::after {
+                content: '';
+                @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+            }
+            .link-hover:hover::after {
+                @apply w-full;
+            }
+            .guide-arrow {
+                transform: rotate(30deg);
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-neutral-100 text-neutral-700 min-h-screen flex flex-col">
+
+<!-- 顶部导航栏 -->
+<header class="bg-white sticky top-0 z-50 shadow-sm transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <i class="fa fa-download text-primary text-2xl mr-3"></i>
+                <span id="site-title" class="text-xl font-bold text-neutral-700">
+                    Driver Download
+                </span>
+            </div>
+
+            <!-- 语言切换 -->
+            <div class="flex items-center space-x-2">
+                <button data-lang="zh-CN"
+                        class="lang-btn px-3 py-1 rounded-lg text-sm border border-primary text-primary bg-primary/5 hover:bg-primary/10 transition">
+                    简体中文
+                </button>
+                <button data-lang="en"
+                        class="lang-btn px-3 py-1 rounded-lg text-sm border border-neutral-300 text-neutral-600 hover:bg-neutral-100 transition">
+                    English
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 主体内容 -->
+<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- 页面简介 -->
+    <section class="mb-6">
+        <h1 id="page-heading" class="text-2xl font-bold text-neutral-800 mb-2">
+            Driver Download Center
+        </h1>
+        <p id="page-subtitle" class="text-sm text-neutral-500">
+            Select and download the drivers for your devices.
+        </p>
+    </section>
+
+    <!-- 驱动列表容器（由 JS 动态生成） -->
+    <div id="driver-list" class="grid grid-cols-1 gap-6">
+        <!-- JS 会在这里插入每个驱动卡片 -->
+    </div>
+</main>
+
+<!-- 微信引导弹窗 -->
+<div id="wechatModal" class="fixed inset-0 bg-black/80 z-50 hidden">
+    <div class="container mx-auto px-4 py-4 h-full flex flex-col">
+        <div class="flex justify-end">
+            <div class="text-white text-right mt-2 mr-2">
+                <i class="fa fa-arrow-up text-5xl guide-arrow text-primary"></i>
+                <p class="mt-2 text-lg">
+                    点击右上角<br>选择"在浏览器中打开"
+                </p>
+            </div>
+        </div>
+        <div class="flex-1 flex items-center justify-center">
+            <div class="bg-white rounded-xl p-6 shadow-2xl max-w-md w-full">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+                        <i class="fa fa-info text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">无法在微信内下载</h3>
+                </div>
+                <p class="text-gray-700 mb-6">
+                    由于微信限制，无法直接在微信内完成下载。请按照以下步骤操作：
+                </p>
+                <ol class="list-decimal pl-5 text-gray-700 space-y-2 mb-6">
+                    <li>点击右上角 <i class="fa fa-ellipsis-h ml-1"></i> 按钮</li>
+                    <li>在弹出菜单中选择"在浏览器中打开"</li>
+                    <li>在浏览器中点击按钮完成下载</li>
+                </ol>
+                <button id="closeModal"
+                        class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-lg transition-all duration-300">
+                    我知道了
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 主脚本 -->
+<script src="./js/app.js"></script>
+</body>
+</html>
